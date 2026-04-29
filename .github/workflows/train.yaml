@@ -1,4 +1,4 @@
-name: Train
+name: Training and Deploying Movie Recommender
 
 on:
   push:
@@ -9,6 +9,7 @@ env:
   PROJECT_ID: lastbit-prj-d-movieapi
   REGISTRY: us-central1-docker.pkg.dev/lastbit-prj-d-movieapi/reg-d-movieapi-pipelines
   STAGING_BUCKET: gs://bkt-d-movieapi-artifacts
+  ENDPOINT_ID: projects/226965473545/locations/us-central1/endpoints/ep-d-movieapi-recommender
 
 jobs:
   train:
@@ -42,7 +43,8 @@ jobs:
             --project=${{ env.PROJECT_ID }} \
             --region=${{ env.REGION }} \
             --image=${{ env.REGISTRY }}/trainer:${{ github.sha }} \
-            --staging-bucket=${{ env.STAGING_BUCKET }}
+            --staging-bucket=${{ env.STAGING_BUCKET }} \
+            --endpoint-id=${{ env.ENDPOINT_ID }}
 
 
       - name: Submit pipeline
