@@ -1,30 +1,34 @@
 import argparse
+import uuid
 from google.cloud import aiplatform
 
 
 def submit(project: str, region: str, image: str, model_bucket: str, staging_bucket: str):
     aiplatform.init(
-        project=project, 
+        project=project,
         location=region,
         staging_bucket=staging_bucket,
-        )
+    )
+
+    run_id = uuid.uuid4().hex[:8]   # ← gera antes do job
 
     job = aiplatform.CustomContainerTrainingJob(
-        display_name="movie-recommender",
+        display_name=f"movie-recommender-{run_id}",
         container_uri=image,
     )
 
     job.run(
         args=[
             f"--model-bucket={model_bucket}",
-            f"--run-id={job.display_name}",
+            f"--run-id={run_id}",           # ← usa a variável local
         ],
         replica_count=1,
         machine_type="n2-standard-4",
         sync=False,
     )
 
-    print(f"job submetido: {job.resource_name}")
+    print(f"job submetido: movie-recommender-{run_id}")
+
 
 
 if __name__ == "__main__":
