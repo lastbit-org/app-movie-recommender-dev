@@ -8,6 +8,7 @@ env:
   REGION: us-central1
   PROJECT_ID: lastbit-prj-d-movieapi
   REGISTRY: us-central1-docker.pkg.dev/lastbit-prj-d-movieapi/reg-d-movieapi-pipelines
+  STAGING_BUCKET: gs://bkt-d-movieapi-artifacts
 
 jobs:
   train:
@@ -40,7 +41,9 @@ jobs:
           python pipelines/submit.py \
             --project=${{ env.PROJECT_ID }} \
             --region=${{ env.REGION }} \
-            --image=${{ env.REGISTRY }}/trainer:${{ github.sha }}
+            --image=${{ env.REGISTRY }}/trainer:${{ github.sha }} \
+            --staging-bucket=${{ env.STAGING_BUCKET }}
+
 
       - name: Submit pipeline
         run: |
