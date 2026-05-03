@@ -47,7 +47,7 @@ def submit(project: str, region: str, image: str, model_bucket: str,
         min_replica_count=1,
         max_replica_count=2,
         traffic_percentage=100,
-        sync=True,
+        # sync=True,
     )
 
     print(f"deploy concluído: {endpoint.resource_name}")
