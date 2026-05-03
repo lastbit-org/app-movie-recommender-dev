@@ -32,7 +32,7 @@ def submit(project: str, region: str, image: str, model_bucket: str,
     model = aiplatform.Model.upload(
         display_name=f"movie-recommender-{run_id}",
         artifact_uri=f"gs://{model_bucket}/runs/{run_id}/",
-        serving_container_image_uri="us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-3:latest",
+        serving_container_image_uri="us-central1-docker.pkg.dev/lastbit-prj-d-movieapi/reg-d-movieapi-pipelines/serving:latest",
         labels={"env": "dev", "workload": "movieapi"},
     )
 
