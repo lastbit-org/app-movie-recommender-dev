@@ -2,7 +2,6 @@ import argparse
 import uuid
 from google.cloud import aiplatform
 
-
 def submit(project: str, region: str, image: str, model_bucket: str,
            staging_bucket: str, endpoint_id: str):
     aiplatform.init(
