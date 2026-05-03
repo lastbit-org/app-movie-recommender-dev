@@ -41,14 +41,14 @@ def submit(project: str, region: str, image: str, model_bucket: str,
     # 3. deploy no endpoint
     endpoint = aiplatform.Endpoint(endpoint_name=endpoint_id)
 
-    model.deploy(
-        endpoint=endpoint,
-        machine_type="n2-standard-2",
-        min_replica_count=1,
-        max_replica_count=2,
-        traffic_percentage=100,
-        # sync=True,
-    )
+    # model.deploy(
+    #     endpoint=endpoint,
+    #     machine_type="n2-standard-2",
+    #     min_replica_count=1,
+    #     max_replica_count=2,
+    #     traffic_percentage=100,
+    #     # sync=True,
+    # )
 
     print(f"deploy concluído: {endpoint.resource_name}")
 
